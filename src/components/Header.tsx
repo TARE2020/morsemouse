@@ -6,7 +6,9 @@ const HeaderBar = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+
   height: 10%;
+
   background: #545454;
 `;
 
@@ -23,6 +25,7 @@ const Headline = styled.h1`
   padding: 0px;
   margin: 0px;
   text-shadow: 2px 2px 10px black;
+
 `;
 
 const Header = () => {

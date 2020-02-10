@@ -4,7 +4,7 @@ import { Global, css } from "@emotion/core";
 function GlobalStyles() {
   return (
     <Global
-      styles={theme => css`
+      styles={css`
         *,
         *:before,
         *:after {
@@ -15,17 +15,11 @@ function GlobalStyles() {
           margin: 0;
           height: 100vh;
           width: 100vw;
-          font-family: "roboto", "sans-serif";
-          scrollbar-width: none;
+          font-family: "Open Sans", sans-serif;
         }
         #root {
           margin: auto;
           height: 100%;
-          max-width: 400px;
-          scrollbar-width: none;
-        }
-        ::-webkit-scrollbar {
-          display: none;
         }
       `}
     />

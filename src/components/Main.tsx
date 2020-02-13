@@ -108,8 +108,10 @@ const Main = () => {
 
   React.useEffect(() => {
     if (translateTo === "toCode") {
+      setMorseCode("");
       textToMorseCode();
     } else if (translateTo === "toText") {
+      setText("");
       morseCodeToText();
     }
   }, [text, morseCode]);

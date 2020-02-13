@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 
 const App = () => {
   const [isEmergency, setIsEmergency] = React.useState(false);
-  console.log(isEmergency);
   return (
     <>
       <GlobalStyles />

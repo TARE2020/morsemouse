@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-
+type MainProps = {
+  isEmergency: boolean;
+  handleEmergency: any;
+};
 const Container = styled.main`
-  height: 90%;
+  height: 80%;
   width: 100%;
   background: #d3d3d3;
   display: flex;
@@ -27,7 +30,7 @@ const Label = styled.label`
   width: 100%;
   height: 40%;
 `;
-const Main = () => {
+const Main = ({ isEmergency, handleEmergency }: MainProps) => {
   const [text, setText] = React.useState("");
   const [morseCode, setMorseCode] = React.useState("");
   const [translateTo, setTranslateTo] = React.useState("");
@@ -98,6 +101,7 @@ const Main = () => {
   };
 
   const handleChange = (method: string, event: any) => {
+    handleEmergency(false);
     setTranslateTo(method);
     if (translateTo === "toCode") {
       setText(event.target.value);
@@ -105,11 +109,24 @@ const Main = () => {
       setMorseCode(event.target.value);
     }
   };
+  const emergencyMode = () => {
+    if (isEmergency) {
+      setText("SOS");
+      setTranslateTo("toCode");
+    } else {
+      setText("");
+      setMorseCode("");
+    }
+  };
+
+  React.useEffect(() => emergencyMode(), [isEmergency]);
 
   React.useEffect(() => {
     if (translateTo === "toCode") {
+      setMorseCode("");
       textToMorseCode();
     } else if (translateTo === "toText") {
+      setText("");
       morseCodeToText();
     }
   }, [text, morseCode]);

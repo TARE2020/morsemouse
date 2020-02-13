@@ -28,40 +28,41 @@ const Label = styled.label`
   height: 40%;
 `;
 const Main = () => {
-  const [inputText, setInputText] = React.useState("");
-  const [resultText, setResultText] = React.useState("");
+  const [text, setText] = React.useState("");
+  const [morseCode, setMorseCode] = React.useState("");
+  const [translateTo, setTranslateTo] = React.useState("");
 
-  const characterToCode: any = {
-    A: "·−",
-    B: "−···",
-    C: "−·−·",
-    D: "−··",
-    E: "·",
-    F: "··−·",
-    G: "−−·",
-    H: "····",
-    I: "··",
-    J: "·−−−",
-    K: "−·−",
-    L: "·−··",
-    M: "−−",
-    N: "−·",
-    O: "−−−",
-    P: "·−−·",
-    Q: "−−·−",
-    R: "·−·",
-    S: "···",
-    T: "−",
-    U: "··−",
-    V: "···−",
-    W: "·−−",
-    X: "−··−",
-    Y: "−·−−",
-    Z: "−−··"
+  const alphabet: any = {
+    A: ".-",
+    B: "-...",
+    C: "-.-.",
+    D: "-..",
+    E: ".",
+    F: "..-.",
+    G: "--.",
+    H: "....",
+    I: "..",
+    J: ".---",
+    K: "-.-",
+    L: ".-..",
+    M: "--",
+    N: "-.",
+    O: "---",
+    P: ".--.",
+    Q: "--.-",
+    R: ".-.",
+    S: "...",
+    T: "-",
+    U: "..-",
+    V: "...-",
+    W: ".--",
+    X: "-..-",
+    Y: "-.--",
+    Z: "--.."
   };
 
   const textToMorseCode = () => {
-    const inputValue = inputText.split("");
+    const inputValue = text.split("");
     let resultCharacters: any = [];
     inputValue.map((character: string) => {
       const upperCaseCharacter: string = character.toUpperCase();
@@ -69,30 +70,70 @@ const Main = () => {
       if (character === " ") {
         resultCharacters.push("/");
       } else if (preparedCharacter > 64 && preparedCharacter < 91) {
-        resultCharacters.push(characterToCode[upperCaseCharacter]);
+        resultCharacters.push(alphabet[upperCaseCharacter]);
       }
       const resultText = resultCharacters.join(" ");
-      setResultText(resultText);
+      setMorseCode(resultText);
       return null;
     });
   };
 
-  React.useEffect(() => textToMorseCode(), [inputText]);
+  const morseCodeToText = () => {
+    const inputValue = morseCode.split(" ");
+    let resultCode: any = [];
+    inputValue.map((codeFragment: string) => {
+      if (codeFragment === " ") {
+        resultCode.push("");
+      } else if (codeFragment === "/") {
+        resultCode.push(" ");
+      } else if (inputValue) {
+        const translatedCodeFragment = Object.keys(alphabet).find(
+          key => alphabet[key] === codeFragment
+        );
+        resultCode.push(translatedCodeFragment);
+      }
+      const resultText = resultCode.join("");
+      setText(resultText);
+    });
+  };
+
+  const handleChange = (method: string, event: any) => {
+    setTranslateTo(method);
+    if (translateTo === "toCode") {
+      setText(event.target.value);
+    } else if (translateTo === "toText") {
+      setMorseCode(event.target.value);
+    }
+  };
+
+  React.useEffect(() => {
+    if (translateTo === "toCode") {
+      textToMorseCode();
+    } else if (translateTo === "toText") {
+      morseCodeToText();
+    }
+  }, [text, morseCode]);
+
   return (
     <Container>
       <Label>
         Text
         <Textarea
-          value={inputText}
+          value={text}
           onChange={event => {
-            setInputText(event.target.value);
+            handleChange("toCode", event);
           }}
         />
       </Label>
 
       <Label>
         Morse
-        <Textarea value={resultText} />
+        <Textarea
+          value={morseCode}
+          onChange={event => {
+            handleChange("toText", event);
+          }}
+        />
       </Label>
     </Container>
   );

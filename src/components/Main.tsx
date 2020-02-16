@@ -3,6 +3,11 @@ import styled from "@emotion/styled";
 type MainProps = {
   isEmergency: boolean;
   handleEmergency: any;
+  playbackStart: boolean;
+};
+type MorseProps = {
+  isLightOn: boolean;
+  playbackStart: boolean;
 };
 const Container = styled.main`
   height: 80%;
@@ -30,10 +35,21 @@ const Label = styled.label`
   width: 100%;
   height: 40%;
 `;
-const Main = ({ isEmergency, handleEmergency }: MainProps) => {
+
+const MorseLight = styled("div")<MorseProps>`
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background: ${({ isLightOn }) => (isLightOn ? "white" : "black")};
+  z-index: ${({ playbackStart }) => (playbackStart ? "1" : "-1")};
+`;
+
+const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
   const [text, setText] = React.useState("");
   const [morseCode, setMorseCode] = React.useState("");
   const [translateTo, setTranslateTo] = React.useState("");
+  const [lightOn, setLightOn] = React.useState(false);
 
   const alphabet: any = {
     A: ".-",
@@ -119,6 +135,19 @@ const Main = ({ isEmergency, handleEmergency }: MainProps) => {
     }
   };
 
+  const morseLight = () => {
+    const dit = 1000;
+    const dah = dit * 3;
+    const morseCodeSplit = morseCode.split("");
+    console.log(morseCodeSplit);
+  };
+
+  React.useEffect(() => {
+    if (playbackStart) {
+      morseLight();
+    }
+  }, [playbackStart]);
+
   React.useEffect(() => emergencyMode(), [isEmergency]);
 
   React.useEffect(() => {
@@ -133,6 +162,10 @@ const Main = ({ isEmergency, handleEmergency }: MainProps) => {
 
   return (
     <Container>
+      <MorseLight
+        playbackStart={playbackStart}
+        isLightOn={lightOn}
+      ></MorseLight>
       <Label>
         Text
         <Textarea

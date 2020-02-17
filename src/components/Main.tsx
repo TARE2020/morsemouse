@@ -7,7 +7,7 @@ type MainProps = {
 };
 type MorseProps = {
   isLightOn: boolean;
-  playbackStart: boolean;
+  playbackStart?: boolean;
 };
 const Container = styled.main`
   height: 80%;
@@ -42,7 +42,7 @@ const MorseLight = styled("div")<MorseProps>`
   height: 100vh;
   width: 100vw;
   background: ${({ isLightOn }) => (isLightOn ? "white" : "black")};
-  z-index: ${({ playbackStart }) => (playbackStart ? "1" : "-1")};
+  z-index: ${({ playbackStart }) => (playbackStart ? "-1" : "-1")};
 `;
 
 const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
@@ -50,6 +50,8 @@ const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
   const [morseCode, setMorseCode] = React.useState("");
   const [translateTo, setTranslateTo] = React.useState("");
   const [lightOn, setLightOn] = React.useState(false);
+  const [delay2, setDelay] = React.useState(0);
+  const [morseCodeSplit, setMorseCodeSplit] = React.useState(["."]);
 
   const alphabet: any = {
     A: ".-",
@@ -119,10 +121,13 @@ const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
   const handleChange = (method: string, event: any) => {
     handleEmergency(false);
     setTranslateTo(method);
+    const value = event.target.value;
     if (translateTo === "toCode") {
-      setText(event.target.value);
+      setText(value);
+      let splitMorseCode = value.split("");
+      setMorseCodeSplit(splitMorseCode);
     } else if (translateTo === "toText") {
-      setMorseCode(event.target.value);
+      setMorseCode(value);
     }
   };
   const emergencyMode = () => {
@@ -138,15 +143,20 @@ const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
   const morseLight = () => {
     const dit = 1000;
     const dah = dit * 3;
-    const morseCodeSplit = morseCode.split("");
-    console.log(morseCodeSplit);
+    const newMorseSplit = [...morseCodeSplit];
+    console.log(newMorseSplit);
+    const returnedFirstChar = newMorseSplit.shift();
+    console.log(returnedFirstChar);
+    setMorseCodeSplit(newMorseSplit);
   };
 
   React.useEffect(() => {
-    if (playbackStart) {
+    if (morseCodeSplit.length === 0) {
+      return;
+    } else if (morseCodeSplit.length > 0 && playbackStart) {
       morseLight();
     }
-  }, [playbackStart]);
+  }, [morseCodeSplit, playbackStart]);
 
   React.useEffect(() => emergencyMode(), [isEmergency]);
 
@@ -163,9 +173,10 @@ const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
   return (
     <Container>
       <MorseLight
-        playbackStart={playbackStart}
         isLightOn={lightOn}
+        playbackStart={playbackStart}
       ></MorseLight>
+
       <Label>
         Text
         <Textarea
@@ -175,7 +186,6 @@ const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
           }}
         />
       </Label>
-
       <Label>
         Morse
         <Textarea

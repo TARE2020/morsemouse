@@ -42,7 +42,7 @@ const MorseLight = styled("div")<MorseProps>`
   height: 100vh;
   width: 100vw;
   background: ${({ isLightOn }) => (isLightOn ? "white" : "black")};
-  z-index: ${({ playbackStart }) => (playbackStart ? "-1" : "-1")};
+  z-index: ${({ playbackStart }) => (playbackStart ? "100" : "-1")};
 `;
 
 const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
@@ -50,8 +50,7 @@ const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
   const [morseCode, setMorseCode] = React.useState("");
   const [translateTo, setTranslateTo] = React.useState("");
   const [lightOn, setLightOn] = React.useState(false);
-  const [delay2, setDelay] = React.useState(0);
-  const [morseCodeSplit, setMorseCodeSplit] = React.useState(["."]);
+  const [morseCodeSplit, setMorseCodeSplit] = React.useState([""]);
 
   const alphabet: any = {
     A: ".-",
@@ -124,7 +123,7 @@ const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
     const value = event.target.value;
     if (translateTo === "toCode") {
       setText(value);
-      let splitMorseCode = value.split("");
+      let splitMorseCode = morseCode.split("");
       setMorseCodeSplit(splitMorseCode);
     } else if (translateTo === "toText") {
       setMorseCode(value);
@@ -141,13 +140,44 @@ const Main = ({ isEmergency, handleEmergency, playbackStart }: MainProps) => {
   };
 
   const morseLight = () => {
-    const dit = 1000;
+    const dit = 400;
     const dah = dit * 3;
+    const breaks = dit;
     const newMorseSplit = [...morseCodeSplit];
-    console.log(newMorseSplit);
     const returnedFirstChar = newMorseSplit.shift();
-    console.log(returnedFirstChar);
-    setMorseCodeSplit(newMorseSplit);
+    if (returnedFirstChar === ".") {
+      setTimeout(() => {
+        setLightOn(true);
+      }, breaks);
+      setTimeout(() => {
+        setLightOn(false);
+        setMorseCodeSplit(newMorseSplit);
+      }, dit + breaks);
+    } else if (returnedFirstChar === "-") {
+      setTimeout(() => {
+        setLightOn(true);
+      }, breaks);
+      setTimeout(() => {
+        setLightOn(false);
+        setMorseCodeSplit(newMorseSplit);
+      }, dah + breaks);
+    } else if (returnedFirstChar === " ") {
+      setTimeout(() => {
+        setLightOn(true);
+      }, breaks + dah);
+      setTimeout(() => {
+        setLightOn(false);
+        setMorseCodeSplit(newMorseSplit);
+      }, breaks);
+    } else if (returnedFirstChar === "/") {
+      setTimeout(() => {
+        setLightOn(false);
+      }, 7 * dit);
+      setTimeout(() => {
+        setLightOn(true);
+        setMorseCodeSplit(newMorseSplit);
+      }, breaks);
+    }
   };
 
   React.useEffect(() => {

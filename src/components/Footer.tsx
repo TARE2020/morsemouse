@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 type FooterProps = {
   isEmergency: boolean;
   toggleEmergency: any;
+  togglePlayback: any;
 };
 const FooterBar = styled.div`
   display: flex;
@@ -23,10 +24,14 @@ const Button = styled.button`
   border-left: 1px solid #d3d3d3;
 `;
 
-const Footer = ({ isEmergency, toggleEmergency }: FooterProps) => {
+const Footer = ({
+  isEmergency,
+  toggleEmergency,
+  togglePlayback
+}: FooterProps) => {
   return (
     <FooterBar>
-      <Button>PLAY</Button>
+      <Button onClick={togglePlayback}>PLAY</Button>
       <Button onClick={toggleEmergency}>SOS</Button>
     </FooterBar>
   );

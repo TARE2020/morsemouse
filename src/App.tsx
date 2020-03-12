@@ -16,6 +16,7 @@ const App = () => {
         playbackStart={playMorseCode}
         isEmergency={isEmergency}
         handleEmergency={(bool: boolean) => setIsEmergency(bool)}
+        togglePlayback={() => setPlayMorseCode(!playMorseCode)}
       />
       <Footer
         togglePlayback={() => setPlayMorseCode(!playMorseCode)}

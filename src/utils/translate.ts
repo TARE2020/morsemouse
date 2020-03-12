@@ -3,7 +3,7 @@ import alphabet from "../utils/alphabet";
 export const textToMorseCode = (text: string) => {
   const inputValue = text.split("");
   let resultCharacters: any = [];
-  inputValue.map((character: string) => {
+  inputValue.forEach((character: string) => {
     const upperCaseCharacter: string = character.toUpperCase();
     const preparedCharacter: number = upperCaseCharacter.charCodeAt(0);
     if (character === " ") {
@@ -19,12 +19,12 @@ export const textToMorseCode = (text: string) => {
 export const morseCodeToText = (morseCode: string) => {
   const inputValue = morseCode.split(" ");
   let resultCode: any = [];
-  inputValue.map((codeFragment: string) => {
+  inputValue.forEach((codeFragment: string) => {
     if (codeFragment === " ") {
       resultCode.push("");
     } else if (codeFragment === "/") {
       resultCode.push(" ");
-    } else if (inputValue) {
+    } else {
       const translatedCodeFragment = Object.keys(alphabet).find(
         key => alphabet[key] === codeFragment
       );

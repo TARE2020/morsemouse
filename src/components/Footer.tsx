@@ -24,15 +24,18 @@ const Button = styled.button`
   border-left: 1px solid #d3d3d3;
 `;
 
-const Footer = ({
-  isEmergency,
-  toggleEmergency,
-  togglePlayback
-}: FooterProps) => {
+const Footer = ({ toggleEmergency, togglePlayback }: FooterProps) => {
   return (
     <FooterBar>
       <Button onClick={togglePlayback}>PLAY</Button>
-      <Button onClick={toggleEmergency}>SOS</Button>
+      <Button
+        onClick={() => {
+          toggleEmergency();
+          setTimeout(() => togglePlayback(), 100);
+        }}
+      >
+        SOS
+      </Button>
     </FooterBar>
   );
 };

@@ -51,11 +51,28 @@ const MorseLight = styled("div")<MorseProps>`
   z-index: ${({ playbackStart }) => (playbackStart ? "100" : "-1")};
 `;
 
+const ExitButton = styled("button")`
+  height: 2em;
+  width: 2em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left:0;
+  bottom:0;
+  margin:auto;
+  border-radius: 50%;
+  border: none;
+  font-weight: 600;
+  font-size: 2em;
+  background-color: #d3d3d3;
+`;
+
+
 const Main = ({
   isEmergency,
   handleEmergency,
   playbackStart,
-  togglePlayback
+  togglePlayback,
 }: MainProps) => {
   const [text, setText] = React.useState("");
   const [morseCode, setMorseCode] = React.useState("");
@@ -73,6 +90,7 @@ const Main = ({
       setMorseCode(value);
     }
   };
+
   const emergencyMode = () => {
     if (isEmergency) {
       setText("SOS");
@@ -114,15 +132,18 @@ const Main = ({
   return (
     <Container>
       <MorseLight
+        onClick={() => togglePlayback(false)}
         isLightOn={lightOn}
         playbackStart={playbackStart}
-      ></MorseLight>
+      >
+          <ExitButton>X</ExitButton>
+      </MorseLight>
 
       <Label>
         Text
         <Textarea
           value={text}
-          onChange={event => {
+          onChange={(event) => {
             handleChange("toCode", event);
           }}
         />
@@ -131,7 +152,7 @@ const Main = ({
         Morse
         <Textarea
           value={morseCode}
-          onChange={event => {
+          onChange={(event) => {
             handleChange("toText", event);
           }}
         />

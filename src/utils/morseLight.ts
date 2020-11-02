@@ -51,5 +51,4 @@ export const morseLight = ({
         setMorseCodeSplit(newMorseSplit);
       }, breaks);
   }
-  setMorseCodeSplit(newMorseSplit.push(returnedFirstChar));
 };

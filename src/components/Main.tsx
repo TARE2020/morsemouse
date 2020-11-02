@@ -84,12 +84,11 @@ const Main = ({
   const [morseCodeSplit, setMorseCodeSplit] = React.useState([""]);
 
   const handleChange = (method: string, event: any) => {
-    handleEmergency(false);
     setTranslateTo(method);
     const value = event.target.value;
-    if (translateTo === "toCode") {
+    if (method === "toCode") {
       setText(value);
-    } else if (translateTo === "toText") {
+    } else if (method === "toText") {
       setMorseCode(value);
     }
   };

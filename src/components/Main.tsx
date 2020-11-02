@@ -30,7 +30,7 @@ const Textarea = styled.textarea`
   margin-top: 5px;
   border-radius: 5px;
   border-color: #b5b5b5;
-  color: #505050;
+  color: var(--main-pri);
   box-shadow: inset 3px 3px 3px lightgrey;
 `;
 
@@ -40,6 +40,10 @@ const Label = styled.label`
   align-items: center;
   width: 100%;
   height: 40%;
+  font-size:1.2em;
+  font-weight: 600;
+  text-transform: uppercase;
+ padding: 0 0 1em
 `;
 
 const MorseLight = styled("div")<MorseProps>`

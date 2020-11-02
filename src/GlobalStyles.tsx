@@ -20,6 +20,8 @@ function GlobalStyles() {
         #root {
           margin: auto;
           height: 100%;
+          --main-pri: RGB(69,40,133);
+          --main-sec: #d3d3d3;
         }
       `}
     />

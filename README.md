@@ -1,44 +1,105 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Morse Mouse
 
-## Available Scripts
+Morse Mouse might save your life when you’re in danger – with it’s shiny flashing (eyes).
 
-In the project directory, you can run:
+## Description
 
-### `npm start`
+With Morse Mouse you can easily en- and de-code Text to and from Morse Code. Very handy when playing with children, spies, army folk or you really need help and there is network reception… Stay tuned for the offline version.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Motivation
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+This web app is a friendly cooperation between [Tobias Erich](https://github.com/tobiaserich) and [Alexander Ruppert](https://github.com/aruppert) and a guy we met named Typescript.
 
-### `npm test`
+## Tech/framework highlights
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<b>Built mainly with </b>
 
-### `npm run build`
+- React
+- TypeScript
+- Emotion
+- npm
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+General:
+- Enter Text and simultaneously see the translation in Morse Code and vice versa
+- By pushing the ‘Play’ Button activate the morse light
+- The ‘SOS’  directly flashes ‘… --- …’ which one one click
+- Text/ Morse Code will play indefinitely in a loop
+- Until stopped by the user
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Code Example
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+const morseLight = ({
+  morseCodeSplit,
+  setLightOn,
+  setMorseCodeSplit,
+}: MorseLightProps) => {
+  const dotFlashLength = 400;
+  const dashFlashLength = dotFlashLength * 3;
+  const breaks = dotFlashLength;
+  const newMorseSplit = [...morseCodeSplit];
+  const returnedFirstChar = newMorseSplit.shift();
+  switch (returnedFirstChar) {
+    case ".":
+      setTimeout(() => {
+        setLightOn(true);
+      }, breaks);
+      setTimeout(() => {
+        setLightOn(false);
+        setMorseCodeSplit(newMorseSplit);
+      }, dotFlashLength + breaks);
+      break;
+    case "-":
+      setTimeout(() => {
+        setLightOn(true);
+      }, breaks);
+      setTimeout(() => {
+        setLightOn(false);
+        setMorseCodeSplit(newMorseSplit);
+      }, dashFlashLength + breaks);
+      break;
+    case " ":
+      setTimeout(() => {
+        setLightOn(true);
+      }, breaks + dashFlashLength);
+      setTimeout(() => {
+        setLightOn(false);
+        setMorseCodeSplit(newMorseSplit);
+      }, breaks);
+      break;
+    case "/":
+      setTimeout(() => {
+        setLightOn(false);
+      }, 7 * dotFlashLength);
+      setTimeout(() => {
+        setLightOn(true);
+        setMorseCodeSplit(newMorseSplit);
+      }, breaks);
+  }
+};
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Clone the repo. 
+Run:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+ npm install
+```
 
-## Learn More
+For a preview:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+npm run start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app should start either way in your browser (usually on http://localhost:3000)
+
+
+## License
+
+MIT © Alexander Ruppert & Tobias Erich

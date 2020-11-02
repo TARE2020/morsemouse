@@ -6,10 +6,8 @@ const HeaderBar = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-
   height: 10%;
-
-  background: #545454;
+  background:var(--main-pri);
 `;
 
 const HeaderLogo = styled.img`

@@ -14,7 +14,7 @@ const FooterBar = styled.div`
 const Button = styled.button`
   flex-grow: 1;
   height: 100%;
-  background-color: #545454;
+  background-color: var(--main-pri);
   border: none;
   color: #d3d3d3;
   font-family: "Russo One";

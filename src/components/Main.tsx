@@ -40,10 +40,10 @@ const Label = styled.label`
   align-items: center;
   width: 100%;
   height: 40%;
-  font-size:1.2em;
+  font-size: 1.2em;
   font-weight: 600;
   text-transform: uppercase;
- padding: 0 0 1em
+  padding: 0 0 1em;
 `;
 
 const MorseLight = styled("div")<MorseProps>`
@@ -61,16 +61,15 @@ const ExitButton = styled("button")`
   position: absolute;
   top: 0;
   right: 0;
-  left:0;
-  bottom:0;
-  margin:auto;
+  left: 0;
+  bottom: 0;
+  margin: auto;
   border-radius: 50%;
   border: none;
   font-weight: 600;
   font-size: 2em;
   background-color: #d3d3d3;
 `;
-
 
 const Main = ({
   isEmergency,
@@ -106,12 +105,11 @@ const Main = ({
   };
 
   React.useEffect(() => {
-    if (morseCodeSplit.length === 0) {
-      if (playbackStart) {
-        togglePlayback(false);
-      } else {
-        return;
-      }
+    if (morseCodeSplit.length === 0 && playbackStart) {
+      setTimeout(() => {
+        let splitMorseCode = morseCode.split("");
+        setMorseCodeSplit(splitMorseCode);
+      }, 1500);
     } else if (morseCodeSplit.length > 0 && playbackStart) {
       morseLight({ morseCodeSplit, setLightOn, setMorseCodeSplit });
     }
@@ -140,7 +138,7 @@ const Main = ({
         isLightOn={lightOn}
         playbackStart={playbackStart}
       >
-          <ExitButton>X</ExitButton>
+        <ExitButton>X</ExitButton>
       </MorseLight>
 
       <Label>

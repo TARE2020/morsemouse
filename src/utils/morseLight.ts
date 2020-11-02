@@ -7,7 +7,7 @@ type MorseLightProps = {
 export const morseLight = ({
   morseCodeSplit,
   setLightOn,
-  setMorseCodeSplit
+  setMorseCodeSplit,
 }: MorseLightProps) => {
   const dotFlashLength = 400;
   const dashFlashLength = dotFlashLength * 3;

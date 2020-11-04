@@ -2,6 +2,8 @@
 
 Morse Mouse might save your life when you’re in danger – with it’s shiny flashing (eyes).
 
+Get to know one of monozygotic twins here [Tobis'Mouse](https://morsemouse.tobias-erich.de/) or [Alex'Mouse](https://morsemouse.alexanderruppert.com/).
+
 ## Description
 
 With Morse Mouse you can easily en- and de-code Text to and from Morse Code. Very handy when playing with children, spies, army folk or you really need help and there is network reception… Stay tuned for the offline version.
@@ -22,12 +24,12 @@ This web app is a friendly cooperation between [Tobias Erich](https://github.com
 ## Features
 
 General:
+
 - Enter Text and simultaneously see the translation in Morse Code and vice versa
 - By pushing the ‘Play’ Button activate the morse light
-- The ‘SOS’  directly flashes ‘… --- …’ which one one click
+- The ‘SOS’ directly flashes ‘… --- …’ which one one click
 - Text/ Morse Code will play indefinitely in a loop
 - Until stopped by the user
-
 
 ## Code Example
 
@@ -84,7 +86,7 @@ const morseLight = ({
 
 ## Installation
 
-Clone the repo. 
+Clone the repo.
 Run:
 
 ```
@@ -98,7 +100,6 @@ npm run start
 ```
 
 The app should start either way in your browser (usually on http://localhost:3000)
-
 
 ## License
 
